@@ -1,0 +1,96 @@
+* {
+  font-family: "Dancing Script", cursive;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #966d09;
+}
+
+main {
+  height: calc(100vh - 130px);
+  padding: 2.5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  max-height: 200px;
+  -webkit-filter: drop-shadow(0 0 2px rgb(255, 255, 255));
+  filter: drop-shadow(0 0 2px rgb(255, 255, 255));
+}
+
+.info-section {
+  background-color: white;
+  border-radius: 0.3em;
+}
+
+h1 {
+  overflow-y: hidden;
+}
+
+.index-section {
+  height: 100%;
+  width: 100%;
+}
+
+/* ====== FOOTER ====== */
+
+footer {
+  background-color: #1a1a1a;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  a {
+    color: darkgoldenrod;
+    text-decoration: none;
+
+    &:hover {
+      color: rgb(145, 106, 9);
+    }
+  }
+}
+
+/* ====== BACKGROUND ====== */
+
+.container-background {
+  max-width: 100%;
+  max-height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.img-back {
+  position: relative;
+  top: -300px;
+  z-index: -2;
+  filter: blur(1px);
+  opacity: 0.5;
+  min-width: 100vw;
+  min-height: 100vh;
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 1024px) {
+  .img-back {
+    top: -100px;
+  }
+}
+
+@media (max-width: 840px) {
+  .img-back {
+    top: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .img-back {
+    left: -25%;
+  }
+}
