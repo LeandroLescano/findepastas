@@ -8,7 +8,7 @@ body {
 }
 
 main {
-  height: calc(100vh - 130px);
+  min-height: calc(100vh - 130px);
   padding: 2.5rem 0;
   flex: 1;
   display: flex;
@@ -26,6 +26,9 @@ main {
 .info-section {
   background-color: white;
   border-radius: 0.3em;
+  h3 {
+    font-family: "Roboto Slab", serif;
+  }
 }
 
 h1 {

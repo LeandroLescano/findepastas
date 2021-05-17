@@ -7,10 +7,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "axios": "^0.19.2",
     "next": "latest",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "sass": "^1.32.13"
+    "sass": "^1.32.13",
+    "tabletop": "^1.6.3"
   },
   "license": "MIT"
 }
