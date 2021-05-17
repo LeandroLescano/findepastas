@@ -44,10 +44,10 @@ function Menu() {
     <Layout title="Finde pastas | Menú">
       {!loading ? (
         <div className="row w-100">
-          <div className="col text-center text-sm-start">
+          <div className="col-12 col-md-6  text-center text-sm-start">
             <h1 className="fw-bold">Menu - Finde pastas</h1>
           </div>
-          <div className="col text-center text-sm-end mb-2">
+          <div className="col-12 col-md-6 text-center text-sm-end mb-2">
             <a
               href="https://wa.me/541131031390?text=Hola!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido..."
               target="_blank"
