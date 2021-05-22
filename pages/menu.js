@@ -75,7 +75,7 @@ function Menu() {
                 <thead>
                   <tr>
                     <th scope="col fw-bold">{cat}</th>
-                    {cat !== "Salsas" ? (
+                    {cat !== "Salsas" && cat !== "Fideos" ? (
                       <>
                         <th scope="col text-center">1/2 doc.</th>
                         <th scope="col">1 doc.</th>
@@ -83,18 +83,22 @@ function Menu() {
                     ) : (
                       <>
                         {data
-                          .filter((item) => item.categoria == "Salsas")
+                          .filter((item) => item.categoria == cat)
                           .map((item, i) => {
                             return (
                               <React.Fragment key={i}>
                                 {item.gramos ? (
                                   <th scope="col text-center">
-                                    {item.gramos}gr.
+                                    {item.gramos >= 1000
+                                      ? item.gramos / 1000 + "kg."
+                                      : item.gramos + "gr."}
                                   </th>
                                 ) : null}
                                 {item.gramos2 ? (
                                   <th scope="col text-center">
-                                    {item.gramos2}gr.
+                                    {item.gramos2 >= 1000
+                                      ? item.gramos2 / 1000 + "kg."
+                                      : item.gramos2 + "gr."}
                                   </th>
                                 ) : null}
                               </React.Fragment>
