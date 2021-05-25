@@ -3,6 +3,7 @@ import Tabletop from "tabletop";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 function Menu() {
   const [data, setData] = useState([]);
@@ -14,21 +15,34 @@ function Menu() {
     if (!!localCat) {
       setCategories(localCat);
       setData(JSON.parse(window.sessionStorage.getItem("products")));
-    } else {
-      Tabletop.init({
-        key: "https://docs.google.com/spreadsheets/d/1TOKLghR2wYq7JQr-9fB6TkT58S_zH80iD8DFsbf-lVQ/edit#gid=0",
-        simpleSheet: true,
-      })
-        .then((data) => setData(data))
-        .catch((err) => console.warn(err));
     }
+    Tabletop.init({
+      key: "https://docs.google.com/spreadsheets/d/1TOKLghR2wYq7JQr-9fB6TkT58S_zH80iD8DFsbf-lVQ/edit#gid=0",
+      simpleSheet: true,
+    })
+      .then((data) => setData(data))
+      .catch((err) => console.warn(err));
   }, []);
 
   useEffect(() => {
-    if (!!!window.sessionStorage.getItem("categories")) {
-      let cat = [...new Set(data.map((item) => item.categoria))];
-      setCategories(cat);
-    }
+    let cat = [...new Set(data.map((item) => item.categoria))];
+    let objCat = [];
+    cat.map((c) => objCat.push({ nombre: c, gramos: [] }));
+    data.map((prod) => {
+      if (prod.gramos !== "")
+        objCat.map((cat) => {
+          if (cat.nombre === prod.categoria) {
+            if (!cat.gramos.includes(prod.gramos)) {
+              cat.gramos.push(prod.gramos);
+            }
+            if (prod.gramos2 !== "" && !cat.gramos.includes(prod.gramos2)) {
+              cat.gramos.push(prod.gramos2);
+            }
+          }
+        });
+    });
+    console.log(objCat);
+    setCategories(objCat);
   }, [data]);
 
   useEffect(() => {
@@ -74,43 +88,34 @@ function Menu() {
               <table className="table table-menu">
                 <thead>
                   <tr>
-                    <th scope="col fw-bold">{cat}</th>
-                    {cat !== "Salsas" && cat !== "Fideos" ? (
+                    <th scope="col fw-bold">{cat.nombre}</th>
+                    {cat.nombre !== "Salsas" && cat.nombre !== "Fideos" ? (
                       <>
                         <th scope="col text-center">1/2 doc.</th>
                         <th scope="col">1 doc.</th>
                       </>
                     ) : (
                       <>
-                        {data
-                          .filter((item) => item.categoria == cat)
-                          .map((item, i) => {
-                            return (
-                              <React.Fragment key={i}>
-                                {item.gramos ? (
-                                  <th scope="col text-center">
-                                    {item.gramos >= 1000
-                                      ? item.gramos / 1000 + "kg."
-                                      : item.gramos + "gr."}
-                                  </th>
-                                ) : null}
-                                {item.gramos2 ? (
-                                  <th scope="col text-center">
-                                    {item.gramos2 >= 1000
-                                      ? item.gramos2 / 1000 + "kg."
-                                      : item.gramos2 + "gr."}
-                                  </th>
-                                ) : null}
-                              </React.Fragment>
-                            );
-                          })}
+                        {cat.gramos.map((item, i) => {
+                          return (
+                            <React.Fragment key={i}>
+                              {item && (
+                                <th scope="col text-center">
+                                  {item >= 1000
+                                    ? item / 1000 + "kg."
+                                    : item + "gr."}
+                                </th>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
                       </>
                     )}
                   </tr>
                 </thead>
                 <tbody>
                   {data
-                    .filter((item) => item.categoria == cat)
+                    .filter((item) => item.categoria == cat.nombre)
                     .map((item, i) => {
                       if (!!item.precio_docena || !!item.precio_media) {
                         return (
@@ -128,14 +133,10 @@ function Menu() {
                         return (
                           <tr key={i}>
                             <td>{item.producto}</td>
-                            {item.gramos2 && !item.gramos ? (
-                              <td></td>
-                            ) : (
+                            {item.gramos2 && !item.gramos ? null : (
                               <td>${item.precio_gramos}</td>
                             )}
-                            {item.gramos && !item.gramos2 ? (
-                              <td></td>
-                            ) : (
+                            {item.gramos && !item.gramos2 ? null : (
                               <td>${item.precio_gramos2}</td>
                             )}
                           </tr>
