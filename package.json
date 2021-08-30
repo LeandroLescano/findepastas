@@ -16,8 +16,8 @@
     "next": "latest",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "sass": "^1.32.13",
-    "tabletop": "^1.6.3"
+    "react-papaparse": "^3.17.1",
+    "sass": "^1.32.13"
   },
   "license": "MIT"
 }
